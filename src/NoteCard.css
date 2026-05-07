@@ -1,25 +1,28 @@
-/* akong-button · Web 样式 · 用 var(--ak-*) 接 @akong/tokens */
+/* akong-note-card · Web 样式 · 用 var(--ak-*) 接 @akong/tokens */
 
 .ak-note-card {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--ak-space-2);
-  font-family: var(--ak-font-sans);
-  font-weight: var(--ak-weight-medium);
-  letter-spacing: var(--ak-tracking-tight);
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  background: transparent;
   border: 0;
-  border-radius: var(--ak-radius-full);
+  border-radius: var(--ak-radius-lg);
+  font-family: var(--ak-font-sans);
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  transition:
-    background-color var(--ak-duration-fast) var(--ak-ease-out),
-    color var(--ak-duration-fast) var(--ak-ease-out),
-    opacity var(--ak-duration-fast) var(--ak-ease-out);
-  white-space: nowrap;
   outline: none;
+  transition: background-color var(--ak-duration-fast) var(--ak-ease-out);
+}
+
+.ak-note-card:hover {
+  background: var(--ak-bg-subtle);
+}
+
+.ak-note-card:active {
+  opacity: 0.7;
 }
 
 .ak-note-card:focus-visible {
@@ -27,113 +30,133 @@
   outline-offset: 2px;
 }
 
-.ak-note-card:active:not(:disabled) {
+/* === Cover === */
+.ak-note-card__cover {
+  position: relative;
+  width: 100%;
+  background: var(--ak-bg-secondary, var(--ak-bg-subtle));
+  overflow: hidden;
+  border-radius: var(--ak-radius-lg);
+  /* aspect-ratio 由 inline style 注入 (取决于 ratio prop) */
+}
+
+.ak-note-card__cover-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--ak-radius-lg);
+}
+
+/* === Body === */
+.ak-note-card__body {
+  padding: var(--ak-space-2) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ak-space-2);
+}
+
+.ak-note-card__title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: var(--ak-text-base);
+  font-weight: var(--ak-weight-regular);
+  line-height: var(--ak-leading-snug);
+  color: var(--ak-fg);
+  word-break: break-word;
+}
+
+/* === Footer === */
+.ak-note-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ak-space-2);
+  font-size: var(--ak-text-xs);
+  color: var(--ak-fg-muted);
+}
+
+.ak-note-card__author {
+  display: flex;
+  align-items: center;
+  gap: var(--ak-space-1);
+  min-width: 0;
+  flex: 1;
+}
+
+.ak-note-card__avatar {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--ak-bg-subtle);
+  flex-shrink: 0;
+}
+
+.ak-note-card__avatar--placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: var(--ak-fg-muted);
+}
+
+.ak-note-card__author-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* === Like button === */
+.ak-note-card__like {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ak-space-1);
+  background: transparent;
+  border: 0;
+  padding: 2px 4px;
+  margin: 0;
+  cursor: pointer;
+  font-size: var(--ak-text-xs);
+  color: var(--ak-fg-muted);
+  font-family: inherit;
+  border-radius: var(--ak-radius-sm);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ak-note-card__like[aria-disabled="true"] {
+  cursor: default;
+}
+
+.ak-note-card__like:active:not([aria-disabled="true"]) {
   opacity: 0.7;
 }
 
-.ak-note-card:disabled,
-.ak-note-card[aria-disabled="true"] {
-  cursor: not-allowed;
-  opacity: 0.4;
+.ak-note-card__like:focus-visible {
+  outline: 2px solid var(--ak-border-strong);
+  outline-offset: 2px;
 }
 
-/* === Sizes === */
-.ak-note-card--sm {
-  height: 32px;
-  padding: 0 var(--ak-space-3);
-  font-size: var(--ak-text-sm);
-  min-width: 32px;
-}
-.ak-note-card--md {
-  height: 40px;
-  padding: 0 var(--ak-space-4);
-  font-size: var(--ak-text-base);
-  min-width: 40px;
-}
-.ak-note-card--lg {
-  height: 48px;
-  padding: 0 var(--ak-space-5);
-  font-size: var(--ak-text-md);
-  min-width: 48px;
-}
-
-/* === Variants === */
-.ak-note-card--primary {
-  background: var(--ak-fg);
-  color: var(--ak-fg-inverse);
-}
-.ak-note-card--primary:hover:not(:disabled) {
-  background: var(--ak-gray-11);
-}
-
-.ak-note-card--secondary {
-  background: var(--ak-bg-subtle);
-  color: var(--ak-fg);
-}
-.ak-note-card--secondary:hover:not(:disabled) {
-  background: var(--ak-bg-hover);
-}
-
-.ak-note-card--ghost {
-  background: transparent;
-  color: var(--ak-fg);
-}
-.ak-note-card--ghost:hover:not(:disabled) {
-  background: var(--ak-bg-subtle);
-}
-
-.ak-note-card--destructive {
-  background: var(--ak-accent);
-  color: var(--ak-accent-fg);
-}
-.ak-note-card--destructive:hover:not(:disabled) {
-  background: var(--ak-accent-10);
-}
-
-.ak-note-card--link {
-  background: transparent;
-  color: var(--ak-fg);
-  padding: 0;
-  height: auto;
-  min-width: 0;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--ak-border-strong);
-}
-.ak-note-card--link:hover:not(:disabled) {
-  text-decoration-color: var(--ak-fg);
-}
-
-/* === Modifiers === */
-.ak-note-card--full-width { width: 100%; }
-
-.ak-note-card--loading {
-  pointer-events: none;
-  position: relative;
-  color: transparent !important;
-}
-.ak-note-card--loading::after {
-  content: "";
-  position: absolute;
+.ak-note-card__like-icon {
   width: 14px;
   height: 14px;
-  border-radius: 50%;
-  border: 2px solid currentColor;
-  border-top-color: transparent;
-  color: var(--ak-fg-muted);
-  animation: ak-spin 0.7s linear infinite;
-}
-.ak-note-card--primary.ak-note-card--loading::after,
-.ak-note-card--destructive.ak-note-card--loading::after {
-  color: var(--ak-fg-inverse);
-}
-
-@keyframes ak-spin {
-  to { transform: rotate(360deg); }
-}
-
-.ak-note-card__icon {
-  display: inline-flex;
-  align-items: center;
   flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ak-note-card__like--liked .ak-note-card__like-icon {
+  fill: var(--ak-accent);
+  stroke: var(--ak-accent);
+}
+
+.ak-note-card__like--liked {
+  color: var(--ak-accent);
 }

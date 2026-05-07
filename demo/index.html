@@ -14,65 +14,188 @@
     color: var(--ak-fg);
     margin: 0;
     padding: var(--ak-space-6);
-    max-width: 760px;
+    max-width: 960px;
     margin-inline: auto;
   }
-  h1 { font-size: var(--ak-text-2xl); font-weight: var(--ak-weight-semibold); letter-spacing: var(--ak-tracking-tight); margin: 0 0 var(--ak-space-2); }
+  h1 { font-size: var(--ak-text-2xl); font-weight: var(--ak-weight-semibold); margin: 0 0 var(--ak-space-2); }
   .sub { color: var(--ak-fg-subtle); font-size: var(--ak-text-sm); margin-bottom: var(--ak-space-8); }
   h2 { font-size: var(--ak-text-md); font-weight: var(--ak-weight-semibold); margin: var(--ak-space-8) 0 var(--ak-space-3); }
-  .row { display: flex; gap: var(--ak-space-3); flex-wrap: wrap; align-items: center; padding: var(--ak-space-3); background: var(--ak-bg-subtle); border-radius: var(--ak-radius-md); }
-  .toggle { position: fixed; top: 16px; right: 16px; padding: 8px 12px; border-radius: var(--ak-radius-full); background: var(--ak-fg); color: var(--ak-bg); border: 0; font-size: var(--ak-text-sm); cursor: pointer; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--ak-space-4);
+  }
+  @media (min-width: 720px) {
+    .grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .toggle {
+    position: fixed; top: 16px; right: 16px;
+    padding: 8px 12px; border-radius: var(--ak-radius-full);
+    background: var(--ak-fg); color: var(--ak-bg);
+    border: 0; font-size: var(--ak-text-sm); cursor: pointer;
+  }
+  .label { color: var(--ak-fg-subtle); font-size: var(--ak-text-xs); margin-bottom: var(--ak-space-2); }
 </style>
 </head>
 <body>
   <button class="toggle" id="t">切换暗色</button>
   <h1>akong NoteCard</h1>
-  <p class="sub">5 variant · 3 size · 跨 Web/RN · 真值跨端 · 一份 props</p>
+  <p class="sub">小红书风瀑布流卡片 · 6 变体 · 跨 Web/RN · 一份 props</p>
 
-  <h2>Variants (size=md)</h2>
-  <div class="row">
-    <button class="ak-note-card ak-note-card--primary ak-note-card--md"><span>Primary</span></button>
-    <button class="ak-note-card ak-note-card--secondary ak-note-card--md"><span>Secondary</span></button>
-    <button class="ak-note-card ak-note-card--ghost ak-note-card--md"><span>Ghost</span></button>
-    <button class="ak-note-card ak-note-card--destructive ak-note-card--md"><span>Destructive</span></button>
-    <button class="ak-note-card ak-note-card--link"><span>Link</span></button>
+  <div class="grid">
+    <!-- 1. 默认 -->
+    <div>
+      <div class="label">默认 · ratio 1.0</div>
+      <div class="ak-note-card" role="link" tabindex="0">
+        <div class="ak-note-card__cover" style="aspect-ratio: 1 / 1;">
+          <img class="ak-note-card__cover-img" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400" alt="cover" />
+        </div>
+        <div class="ak-note-card__body">
+          <div class="ak-note-card__title">今日穿搭分享 · 春日小清新</div>
+          <div class="ak-note-card__footer">
+            <div class="ak-note-card__author">
+              <img class="ak-note-card__avatar" src="https://i.pravatar.cc/24?img=5" alt="" />
+              <span class="ak-note-card__author-name">小喜</span>
+            </div>
+            <button class="ak-note-card__like" aria-pressed="false" aria-label="点赞">
+              <svg class="ak-note-card__like-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span>233</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. liked -->
+    <div>
+      <div class="label">已点赞 (liked=true)</div>
+      <div class="ak-note-card" role="link" tabindex="0">
+        <div class="ak-note-card__cover" style="aspect-ratio: 1 / 1.3;">
+          <img class="ak-note-card__cover-img" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400" alt="cover" />
+        </div>
+        <div class="ak-note-card__body">
+          <div class="ak-note-card__title">家居改造 · 5 平米卧室爆改</div>
+          <div class="ak-note-card__footer">
+            <div class="ak-note-card__author">
+              <img class="ak-note-card__avatar" src="https://i.pravatar.cc/24?img=8" alt="" />
+              <span class="ak-note-card__author-name">大喜</span>
+            </div>
+            <button class="ak-note-card__like ak-note-card__like--liked" aria-pressed="true" aria-label="取消点赞">
+              <svg class="ak-note-card__like-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span>567</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 极长标题 (line-clamp-2) -->
+    <div>
+      <div class="label">极长标题 · line-clamp-2</div>
+      <div class="ak-note-card" role="link" tabindex="0">
+        <div class="ak-note-card__cover" style="aspect-ratio: 1 / 1.2;">
+          <img class="ak-note-card__cover-img" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400" alt="cover" />
+        </div>
+        <div class="ak-note-card__body">
+          <div class="ak-note-card__title">超长标题测试 · 复古港风 · 法式优雅 · 日杂大女主 · 一篇笔记教你搞定所有风格 · 真的超长超长不会爆出去</div>
+          <div class="ak-note-card__footer">
+            <div class="ak-note-card__author">
+              <img class="ak-note-card__avatar" src="https://i.pravatar.cc/24?img=12" alt="" />
+              <span class="ak-note-card__author-name">阿空小喜</span>
+            </div>
+            <button class="ak-note-card__like" aria-pressed="false" aria-label="点赞">
+              <svg class="ak-note-card__like-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span>89</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 头像缺失 -->
+    <div>
+      <div class="label">头像缺失 · placeholder</div>
+      <div class="ak-note-card" role="link" tabindex="0">
+        <div class="ak-note-card__cover" style="aspect-ratio: 1 / 1.1;">
+          <img class="ak-note-card__cover-img" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400" alt="cover" />
+        </div>
+        <div class="ak-note-card__body">
+          <div class="ak-note-card__title">无头像用户的笔记</div>
+          <div class="ak-note-card__footer">
+            <div class="ak-note-card__author">
+              <span class="ak-note-card__avatar ak-note-card__avatar--placeholder" aria-hidden="true">匿</span>
+              <span class="ak-note-card__author-name">匿名用户</span>
+            </div>
+            <button class="ak-note-card__like" aria-pressed="false" aria-label="点赞">
+              <svg class="ak-note-card__like-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span>1.5k</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 大 likes (>10000 → w) -->
+    <div>
+      <div class="label">大 likes (12345 → 1.2w)</div>
+      <div class="ak-note-card" role="link" tabindex="0">
+        <div class="ak-note-card__cover" style="aspect-ratio: 1 / 1.4;">
+          <img class="ak-note-card__cover-img" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=400" alt="cover" />
+        </div>
+        <div class="ak-note-card__body">
+          <div class="ak-note-card__title">爆款笔记 · 全网都在抄</div>
+          <div class="ak-note-card__footer">
+            <div class="ak-note-card__author">
+              <img class="ak-note-card__avatar" src="https://i.pravatar.cc/24?img=20" alt="" />
+              <span class="ak-note-card__author-name">顶流博主</span>
+            </div>
+            <button class="ak-note-card__like ak-note-card__like--liked" aria-pressed="true" aria-label="取消点赞">
+              <svg class="ak-note-card__like-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span>1.2w</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 横图 ratio 0.7 -->
+    <div>
+      <div class="label">横图 · ratio 0.7</div>
+      <div class="ak-note-card" role="link" tabindex="0">
+        <div class="ak-note-card__cover" style="aspect-ratio: 1 / 0.7;">
+          <img class="ak-note-card__cover-img" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400" alt="cover" />
+        </div>
+        <div class="ak-note-card__body">
+          <div class="ak-note-card__title">风景大片 · 横屏震撼</div>
+          <div class="ak-note-card__footer">
+            <div class="ak-note-card__author">
+              <img class="ak-note-card__avatar" src="https://i.pravatar.cc/24?img=33" alt="" />
+              <span class="ak-note-card__author-name">摄影阿空</span>
+            </div>
+            <button class="ak-note-card__like" aria-pressed="false" aria-label="点赞">
+              <svg class="ak-note-card__like-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span>3.4k</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <h2>Sizes (variant=primary)</h2>
-  <div class="row">
-    <button class="ak-note-card ak-note-card--primary ak-note-card--sm"><span>Small</span></button>
-    <button class="ak-note-card ak-note-card--primary ak-note-card--md"><span>Medium</span></button>
-    <button class="ak-note-card ak-note-card--primary ak-note-card--lg"><span>Large</span></button>
-  </div>
-
-  <h2>States</h2>
-  <div class="row">
-    <button class="ak-note-card ak-note-card--primary ak-note-card--md"><span>Default</span></button>
-    <button class="ak-note-card ak-note-card--primary ak-note-card--md ak-note-card--loading"><span>Loading</span></button>
-    <button class="ak-note-card ak-note-card--primary ak-note-card--md" disabled><span>Disabled</span></button>
-  </div>
-
-  <h2>With Icons</h2>
-  <div class="row">
-    <button class="ak-note-card ak-note-card--primary ak-note-card--md">
-      <span class="ak-note-card__icon">+</span>
-      <span>Add</span>
-    </button>
-    <button class="ak-note-card ak-note-card--secondary ak-note-card--md">
-      <span>Next</span>
-      <span class="ak-note-card__icon">→</span>
-    </button>
-    <button class="ak-note-card ak-note-card--ghost ak-note-card--md" aria-label="search">
-      <span class="ak-note-card__icon">🔍</span>
-    </button>
-  </div>
-
-  <h2>Full width</h2>
-  <div class="row" style="display: block;">
-    <button class="ak-note-card ak-note-card--primary ak-note-card--md ak-note-card--full-width"><span>占满整行</span></button>
-  </div>
+  <h2>暗色 (切换右上角按钮)</h2>
+  <p class="sub">点右上角"切换暗色" · 整页 dark · 卡片自动切 token</p>
 
 <script>
+  // 简易交互 · 演示 hover/active 效果 · 心点击切 liked
+  document.querySelectorAll('.ak-note-card__like').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation()
+      el.classList.toggle('ak-note-card__like--liked')
+      const pressed = el.classList.contains('ak-note-card__like--liked')
+      el.setAttribute('aria-pressed', String(pressed))
+    })
+  })
   document.getElementById('t').onclick = () => {
     document.documentElement.classList.toggle('dark')
   }

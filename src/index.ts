@@ -1,2 +1,3 @@
 export { NoteCard, default } from './NoteCard'
-export type { NoteCardProps, NoteCardVariant, NoteCardSize } from './NoteCard.types'
+export type { NoteCardProps, NoteCardAuthor } from './NoteCard.types'
+export { formatLikes, optimisticLike } from './NoteCard.behavior'

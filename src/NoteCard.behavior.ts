@@ -1,39 +1,48 @@
 /**
  * 跨端行为契约 · Web + RN 都遵循
  *
- * 写法是"给定 props · 期望 · 该发生 / 不该发生"的纯描述
- * 各端测试 import 这份 spec 跑 · 行为强一致
+ * 小红书风 NoteCard 关键行为:
+ * 1. 点心 → 触发 onLike + 切 liked + likes ±1 (optimistic)
+ * 2. 点心不冒泡到卡片 onPress
+ * 3. 没 onLike 时心无交互
+ * 4. likes 格式: > 10000 显示 1.2w · > 1000 显示 1.5k · 其他原数
  */
 
-export type Outcome = 'callback-fired' | 'callback-skipped'
+/** 点赞数格式化 · >10000 = w · >1000 = k · 其他原数 */
+export function formatLikes(n: number): string {
+  if (n > 10000) return `${(n / 10000).toFixed(1)}w`
+  if (n > 1000) return `${(n / 1000).toFixed(1)}k`
+  return String(n)
+}
 
-export interface Scenario {
+/** optimistic 点心结果 · 给 likes 当前值 + 当前 liked · 返回新值 */
+export function optimisticLike(
+  liked: boolean,
+  likes: number,
+): { liked: boolean; likes: number } {
+  return liked
+    ? { liked: false, likes: Math.max(0, likes - 1) }
+    : { liked: true, likes: likes + 1 }
+}
+
+export type LikeOutcome = 'fired' | 'skipped'
+
+export interface LikeScenario {
   name: string
-  props: { disabled?: boolean; loading?: boolean }
-  /** 模拟一次"按下" · 期望结果 */
-  onPressOutcome: Outcome
+  hasOnLike: boolean
+  outcome: LikeOutcome
 }
 
 /** 共享场景 · Web + RN 都跑 */
-export const buttonScenarios: Scenario[] = [
+export const likeScenarios: LikeScenario[] = [
   {
-    name: 'default · 按下触发回调',
-    props: {},
-    onPressOutcome: 'callback-fired',
+    name: '有 onLike · 点心触发回调',
+    hasOnLike: true,
+    outcome: 'fired',
   },
   {
-    name: 'disabled · 按下不触发',
-    props: { disabled: true },
-    onPressOutcome: 'callback-skipped',
-  },
-  {
-    name: 'loading · 按下不触发',
-    props: { loading: true },
-    onPressOutcome: 'callback-skipped',
-  },
-  {
-    name: 'disabled + loading · 按下不触发',
-    props: { disabled: true, loading: true },
-    onPressOutcome: 'callback-skipped',
+    name: '没 onLike · 点心不报错也不响应',
+    hasOnLike: false,
+    outcome: 'skipped',
   },
 ]

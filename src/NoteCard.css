@@ -1,0 +1,139 @@
+/* akong-button · Web 样式 · 用 var(--ak-*) 接 @akong/tokens */
+
+.ak-note-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ak-space-2);
+  font-family: var(--ak-font-sans);
+  font-weight: var(--ak-weight-medium);
+  letter-spacing: var(--ak-tracking-tight);
+  border: 0;
+  border-radius: var(--ak-radius-full);
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition:
+    background-color var(--ak-duration-fast) var(--ak-ease-out),
+    color var(--ak-duration-fast) var(--ak-ease-out),
+    opacity var(--ak-duration-fast) var(--ak-ease-out);
+  white-space: nowrap;
+  outline: none;
+}
+
+.ak-note-card:focus-visible {
+  outline: 2px solid var(--ak-border-strong);
+  outline-offset: 2px;
+}
+
+.ak-note-card:active:not(:disabled) {
+  opacity: 0.7;
+}
+
+.ak-note-card:disabled,
+.ak-note-card[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* === Sizes === */
+.ak-note-card--sm {
+  height: 32px;
+  padding: 0 var(--ak-space-3);
+  font-size: var(--ak-text-sm);
+  min-width: 32px;
+}
+.ak-note-card--md {
+  height: 40px;
+  padding: 0 var(--ak-space-4);
+  font-size: var(--ak-text-base);
+  min-width: 40px;
+}
+.ak-note-card--lg {
+  height: 48px;
+  padding: 0 var(--ak-space-5);
+  font-size: var(--ak-text-md);
+  min-width: 48px;
+}
+
+/* === Variants === */
+.ak-note-card--primary {
+  background: var(--ak-fg);
+  color: var(--ak-fg-inverse);
+}
+.ak-note-card--primary:hover:not(:disabled) {
+  background: var(--ak-gray-11);
+}
+
+.ak-note-card--secondary {
+  background: var(--ak-bg-subtle);
+  color: var(--ak-fg);
+}
+.ak-note-card--secondary:hover:not(:disabled) {
+  background: var(--ak-bg-hover);
+}
+
+.ak-note-card--ghost {
+  background: transparent;
+  color: var(--ak-fg);
+}
+.ak-note-card--ghost:hover:not(:disabled) {
+  background: var(--ak-bg-subtle);
+}
+
+.ak-note-card--destructive {
+  background: var(--ak-accent);
+  color: var(--ak-accent-fg);
+}
+.ak-note-card--destructive:hover:not(:disabled) {
+  background: var(--ak-accent-10);
+}
+
+.ak-note-card--link {
+  background: transparent;
+  color: var(--ak-fg);
+  padding: 0;
+  height: auto;
+  min-width: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--ak-border-strong);
+}
+.ak-note-card--link:hover:not(:disabled) {
+  text-decoration-color: var(--ak-fg);
+}
+
+/* === Modifiers === */
+.ak-note-card--full-width { width: 100%; }
+
+.ak-note-card--loading {
+  pointer-events: none;
+  position: relative;
+  color: transparent !important;
+}
+.ak-note-card--loading::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  color: var(--ak-fg-muted);
+  animation: ak-spin 0.7s linear infinite;
+}
+.ak-note-card--primary.ak-note-card--loading::after,
+.ak-note-card--destructive.ak-note-card--loading::after {
+  color: var(--ak-fg-inverse);
+}
+
+@keyframes ak-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ak-note-card__icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}

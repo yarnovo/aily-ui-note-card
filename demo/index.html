@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>akong NoteCard · demo</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yarnovo/akong-tokens@main/src/tokens.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yarnovo/akong-tokens@main/src/tokens.dark.css" />
+<link rel="stylesheet" href="../src/NoteCard.css" />
+<style>
+  body {
+    font-family: var(--ak-font-sans);
+    background: var(--ak-bg);
+    color: var(--ak-fg);
+    margin: 0;
+    padding: var(--ak-space-6);
+    max-width: 760px;
+    margin-inline: auto;
+  }
+  h1 { font-size: var(--ak-text-2xl); font-weight: var(--ak-weight-semibold); letter-spacing: var(--ak-tracking-tight); margin: 0 0 var(--ak-space-2); }
+  .sub { color: var(--ak-fg-subtle); font-size: var(--ak-text-sm); margin-bottom: var(--ak-space-8); }
+  h2 { font-size: var(--ak-text-md); font-weight: var(--ak-weight-semibold); margin: var(--ak-space-8) 0 var(--ak-space-3); }
+  .row { display: flex; gap: var(--ak-space-3); flex-wrap: wrap; align-items: center; padding: var(--ak-space-3); background: var(--ak-bg-subtle); border-radius: var(--ak-radius-md); }
+  .toggle { position: fixed; top: 16px; right: 16px; padding: 8px 12px; border-radius: var(--ak-radius-full); background: var(--ak-fg); color: var(--ak-bg); border: 0; font-size: var(--ak-text-sm); cursor: pointer; }
+</style>
+</head>
+<body>
+  <button class="toggle" id="t">切换暗色</button>
+  <h1>akong NoteCard</h1>
+  <p class="sub">5 variant · 3 size · 跨 Web/RN · 真值跨端 · 一份 props</p>
+
+  <h2>Variants (size=md)</h2>
+  <div class="row">
+    <button class="ak-note-card ak-note-card--primary ak-note-card--md"><span>Primary</span></button>
+    <button class="ak-note-card ak-note-card--secondary ak-note-card--md"><span>Secondary</span></button>
+    <button class="ak-note-card ak-note-card--ghost ak-note-card--md"><span>Ghost</span></button>
+    <button class="ak-note-card ak-note-card--destructive ak-note-card--md"><span>Destructive</span></button>
+    <button class="ak-note-card ak-note-card--link"><span>Link</span></button>
+  </div>
+
+  <h2>Sizes (variant=primary)</h2>
+  <div class="row">
+    <button class="ak-note-card ak-note-card--primary ak-note-card--sm"><span>Small</span></button>
+    <button class="ak-note-card ak-note-card--primary ak-note-card--md"><span>Medium</span></button>
+    <button class="ak-note-card ak-note-card--primary ak-note-card--lg"><span>Large</span></button>
+  </div>
+
+  <h2>States</h2>
+  <div class="row">
+    <button class="ak-note-card ak-note-card--primary ak-note-card--md"><span>Default</span></button>
+    <button class="ak-note-card ak-note-card--primary ak-note-card--md ak-note-card--loading"><span>Loading</span></button>
+    <button class="ak-note-card ak-note-card--primary ak-note-card--md" disabled><span>Disabled</span></button>
+  </div>
+
+  <h2>With Icons</h2>
+  <div class="row">
+    <button class="ak-note-card ak-note-card--primary ak-note-card--md">
+      <span class="ak-note-card__icon">+</span>
+      <span>Add</span>
+    </button>
+    <button class="ak-note-card ak-note-card--secondary ak-note-card--md">
+      <span>Next</span>
+      <span class="ak-note-card__icon">→</span>
+    </button>
+    <button class="ak-note-card ak-note-card--ghost ak-note-card--md" aria-label="search">
+      <span class="ak-note-card__icon">🔍</span>
+    </button>
+  </div>
+
+  <h2>Full width</h2>
+  <div class="row" style="display: block;">
+    <button class="ak-note-card ak-note-card--primary ak-note-card--md ak-note-card--full-width"><span>占满整行</span></button>
+  </div>
+
+<script>
+  document.getElementById('t').onclick = () => {
+    document.documentElement.classList.toggle('dark')
+  }
+</script>
+</body>
+</html>

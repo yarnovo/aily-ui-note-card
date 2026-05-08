@@ -1,5 +1,7 @@
 # @akong/note-card
 
+> ← 回 [akong design system](https://yarnovo.github.io/akong-core/) 总站
+
 akong NoteCard · 小红书风瀑布流卡片 · 跨端 (Web + React Native)
 
 封面 + 标题 + 作者 + 点赞数 · 一份 props 跨 Web/RN · 内置 optimistic 点赞。

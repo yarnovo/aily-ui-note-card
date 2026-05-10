@@ -29,15 +29,35 @@
     .grid { grid-template-columns: repeat(3, 1fr); }
   }
   .toggle {
-    position: fixed; top: 16px; right: 16px;
+    position: fixed; top: 64px; right: 16px;
     padding: 8px 12px; border-radius: var(--ak-radius-full);
     background: var(--ak-fg); color: var(--ak-bg);
     border: 0; font-size: var(--ak-text-sm); cursor: pointer;
   }
   .label { color: var(--ak-fg-subtle); font-size: var(--ak-text-xs); margin-bottom: var(--ak-space-2); }
+  .back-to-index {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    padding: 8px 16px;
+    background: var(--ak-bg-elevated);
+    border: 1px solid var(--ak-border-subtle);
+    border-radius: var(--ak-radius-full);
+    color: var(--ak-fg-muted);
+    text-decoration: none;
+    font-size: var(--ak-text-sm);
+    box-shadow: var(--ak-shadow-sm);
+    transition: all 0.2s;
+  }
+  .back-to-index:hover {
+    background: var(--ak-bg-hover);
+    color: var(--ak-fg);
+  }
 </style>
 </head>
 <body>
+  <a href="https://yarnovo.github.io/aily-ui-core/" class="back-to-index">← 回 aily-ui 总站</a>
   <button class="toggle" id="t">切换暗色</button>
   <h1>aily-ui NoteCard</h1>
   <p class="sub">小红书风瀑布流卡片 · 6 变体 · 跨 Web/RN · 一份 props</p>
